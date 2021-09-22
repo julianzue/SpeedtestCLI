@@ -2,4 +2,4 @@
 
 ## Requirements
 - speedtest-cli (pip install speedtest-cli)
-- colorama
+- colorama (pip install colorama)
