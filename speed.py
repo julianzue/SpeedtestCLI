@@ -1,32 +1,54 @@
-import speedtest
+def speedtest():
+    import speedtest
+    from pyfiglet import Figlet
+    from colorama import Fore, init
 
-print("SPEEDTEST")
-print("=========")
+    init()
 
-servers = []
+    yellow = Fore.LIGHTYELLOW_EX
+    reset = Fore.RESET
 
-threads = None
+    f = Figlet(font='slant')
+    print(yellow + f.renderText('SPEEDTEST') + reset)
 
-s = speedtest.Speedtest()
+    servers = []
 
-print("[i] Searching server...")
+    threads = None
 
-print("")
+    s = speedtest.Speedtest()
 
-s.get_servers(servers)
-s.get_best_server()
+    print("[*] Searching server...")
 
-print("[i] Download")
-print("[i] " + "{:.2f}".format(s.download(threads=threads) / 1000000) + " MBit/s")
+    print("")
 
-print("")
+    s.get_servers(servers)
+    s.get_best_server()
 
-print("[i] Upload")
-print("[i] " + "{:.2f}".format(s.upload(threads=threads) / 1000000) + " MBit/s")
+    print(yellow + "[*] Calculating download speed..." + reset)
+    print("[*] " + "{:.2f}".format(s.download(threads=threads) / 1000000) + " MBit/s")
 
-s.results.share()
+    print("")
 
-results_dict = s.results.dict()
+    print(yellow + "[*] Calculating upload speed..." + reset)
+    print("[*] " + "{:.2f}".format(s.upload(threads=threads) / 1000000) + " MBit/s")
 
+    s.results.share()
 
+    print("")
+
+try:
+
+    speedtest()
+
+except ModuleNotFoundError:
+    
+    import os
+
+    os.system("pip install colorama")
+    os.system("pip install pyfiglet")
+    os.system("pip install speedtest-cli")
+
+    print()
+
+    speedtest()
 
